@@ -1,8 +1,12 @@
 ---
+server:
+   port: 31031
+
+
 spring:
   cloud:
     config:
       server:
         git:
           uri: https://github.com/r82anand/springcloud
-          searchPaths: ApplicationConfigFiles
+          search-paths: ApplicationConfigFiles

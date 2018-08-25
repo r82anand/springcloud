@@ -1,0 +1,9 @@
+---
+server:
+   port: 32032
+spring:
+  application:
+    name: springcloudconfigclient
+  cloud:
+    config:
+      uri: http://localhost:31031
