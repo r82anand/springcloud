@@ -4,5 +4,5 @@ spring:
     config:
       server:
         git:
-          uri:
-          searchPaths:
+          uri: https://github.com/r82anand/springcloud
+          searchPaths: ApplicationConfigFiles

@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sivadas.anand</groupId>
-	<artifactId>SpringCloudConfig</artifactId>
+	<artifactId>SpringCloudConfigServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>SpringCloudConfig</name>
+	<name>SpringCloudConfigServer</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -23,6 +23,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
+		<docker.image.prefix>r82anand</docker.image.prefix>
+		<docker.image.name>springcloudconfigserver</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -60,7 +62,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                    <mainClass>com.sivadas.anand.SpringCloudConfigServerApplication</mainClass>
+                    <serverId>docker-hub</serverId>
+    				<registryUrl>https://index.docker.io/v1/</registryUrl>
+                </configuration>
 			</plugin>
+			<plugin>
+            	<groupId>com.spotify</groupId>
+            	<artifactId>docker-maven-plugin</artifactId>
+            	<version>0.4.10</version>
+            	<configuration>
+                	<imageName>${docker.image.prefix}/${docker.image.name}</imageName>
+                	<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                	<resources>
+                    	<resource>
+                        	<targetPath>/</targetPath>
+                        	<directory>${project.build.directory}</directory>
+                        	<include>${project.build.finalName}.jar</include>
+                    	</resource>
+                	</resources>
+            	</configuration>
+        	</plugin>
 		</plugins>
 	</build>
 
